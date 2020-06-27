@@ -1,6 +1,9 @@
 import express from 'express';
 
 const app = express();
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
-});
+const port = 8080; // default port to listen
+
+// start the Express server
+app.listen( port, () => {
+  console.log( `server started at http://localhost:${ port }` );
+} );
