@@ -1,0 +1,23 @@
+{
+  "name": "voice-bridge",
+  "version": "1.0.0",
+  "description": "Matrix pstn voice bridge",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/levimdmiller/voice-bridge.git"
+  },
+  "author": "Levi Miller",
+  "license": "AGPL-1.0-only",
+  "bugs": {
+    "url": "https://github.com/levimdmiller/voice-bridge/issues"
+  },
+  "homepage": "https://github.com/levimdmiller/voice-bridge#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jssip": "^3.5.1"
+  }
+}
