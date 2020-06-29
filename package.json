@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node .",
     "build": "tsc",
-    "lint": "./node_modules/.bin/eslint ./src/*",
-    "lint:fix": "./node_modules/.bin/eslint --fix ./src/*",
+    "lint": "./node_modules/.bin/eslint \"**/*.ts\"",
+    "lint:fix": "./node_modules/.bin/eslint --fix \"**/*.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

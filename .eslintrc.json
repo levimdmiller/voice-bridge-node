@@ -15,5 +15,8 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "max-len": ["error", { "code": 90 }],
+    "no-unused-vars": ["off"],
+    "@typescript-eslint/no-unused-vars": "error"
   }
 }
