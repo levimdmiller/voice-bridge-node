@@ -1,15 +1,27 @@
-import {RestApi} from "./rest-api";
-import {Express, Request, Response} from "express";
-const { RestClient } = require('@signalwire/node');
+import {RestApi} from './rest-api';
+import {Express, Request, Response} from 'express';
+const {RestClient} = require('@signalwire/node');
 
+/**
+ * Handles setting up /voice/* rest endpoints.
+ */
 export class VoiceApi implements RestApi {
   private readonly baseApi: string = '/voice';
 
+  /**
+   * sets up voice apis
+   * @param {Express} app - app to configure
+   */
   setup(app: Express): void {
     app.post(this.baseApi, this.handlePost);
   }
 
-  handlePost(reqest: Request, response: Response) {
+  /**
+   * Handles posting to the base url.
+   * @param {Request} request - post request
+   * @param {Response} response - post response
+   */
+  handlePost(request: Request, response: Response) {
     // const { From, To } = request.body;
     const laml = new RestClient.LaML.VoiceResponse();
 

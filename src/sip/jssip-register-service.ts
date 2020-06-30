@@ -50,6 +50,10 @@ export class JssipRegisterService implements RegisterService {
     });
   }
 
+  /**
+   * Temp
+   * @param {any} event
+   */
   test(event: any): void {
     console.log('********', event);
   }

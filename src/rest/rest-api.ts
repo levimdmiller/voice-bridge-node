@@ -1,9 +1,9 @@
-import {Express} from "express";
+import {Express} from 'express';
 
 export interface RestApi {
   /**
    * sets up rest apis on the given app.
-   * @param app {Express} - app to configure
+   * @param {Express} app - app to configure
    */
   setup(app: Express): void;
 }
