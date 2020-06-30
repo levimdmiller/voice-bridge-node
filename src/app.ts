@@ -1,32 +1,35 @@
-import express from 'express';
-import {RegisterService, WebsocketRegisterService} from './sip';
+import express, {Express} from 'express';
+import {RegisterService, JssipRegisterService} from './sip';
+import {REST_APIS} from "./rest";
+import bodyParser from "body-parser";
 
-const app = express();
-const port = 8080; // default port to listen
+const port = 2357; // default port to listen
+
+const app: Express = express();
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // start the Express server
 app.listen(port, async () => {
   console.log( `server started at http://localhost:${ port }` );
 
-  const registerService: RegisterService = new WebsocketRegisterService(
+  await registerService();
+});
+REST_APIS.forEach(api => api.setup(app));
+
+export async function registerService() {
+  const registerService: RegisterService = new JssipRegisterService(
       'levimiller-matrixbridge.sip.signalwire.com',
       '+17784004339',
       'demodemo',
   );
   try {
     const result = await registerService.registerClient();
-    console.log('Registered: ', result);
+    console.info('Registered: ', result);
   } catch (e) {
-    console.log('Error registering: ', e);
+    console.error('Error registering: ', e);
   }
-} );
+}
 
 // catches ctrl+c event
 process.on('SIGINT', process.exit);
-
-// catches "kill pid" (for example: nodemon restart)
-process.on('SIGUSR1', process.exit);
-process.on('SIGUSR2', process.exit);
-
-// catches uncaught exceptions
-process.on('uncaughtException', process.exit);

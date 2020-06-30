@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/levimdmiller/voice-bridge#readme",
   "dependencies": {
+    "@signalwire/node": "^2.3.3",
     "express": "^4.17.1",
     "jssip": "^3.5.1",
     "jssip-node-websocket": "^3.0.0"

@@ -10,7 +10,7 @@ const NodeWebSocket = require('jssip-node-websocket');
 /**
  * Handles
  */
-export class WebsocketRegisterService implements RegisterService {
+export class JssipRegisterService implements RegisterService {
   private userAgent: UA | undefined;
 
   /**
@@ -42,9 +42,16 @@ export class WebsocketRegisterService implements RegisterService {
           'registrationFailed',
           (event: UnRegisteredEvent) => reject(event),
       );
+
+      this.userAgent.on('newRTCSession', (data: any) => this.test(data));
+
       this.userAgent.start();
       process.on('exit', () => this.unregisterClient());
     });
+  }
+
+  test(event: any): void {
+    console.log('********', event);
   }
 
   /**

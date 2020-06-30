@@ -1,2 +1,2 @@
 export * from './register-service';
-export * from './websocket-register-service';
+export * from './jssip-register-service';
