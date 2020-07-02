@@ -1,2 +1,2 @@
-export * from './register-service';
-export * from './jssip-register-service';
+export * from './sip-service';
+export * from './jssip-sip-service';

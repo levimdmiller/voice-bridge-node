@@ -3,15 +3,21 @@ import {
   UAConfiguration,
   UnRegisteredEvent,
 } from 'jssip/lib/UA';
-import {UA} from 'jssip';
-import {RegisterService} from './register-service';
+import {SipService} from './sip-service';
+import {NodeUa} from "./node-ua";
+import {Invite} from "./models/invite";
+import {Observable, Subject, Subscription} from "rxjs";
 const NodeWebSocket = require('jssip-node-websocket');
 
 /**
- * Handles
+ * Handles sip
  */
-export class JssipRegisterService implements RegisterService {
-  private userAgent: UA | undefined;
+export class JssipSipService implements SipService {
+  readonly invite$: Observable<Invite>;
+
+  private userAgent: NodeUa | undefined;
+  private inviteSubject: Subject<Invite>;
+  private inviteSubscription: Subscription | undefined;
 
   /**
    * Constructor
@@ -19,7 +25,10 @@ export class JssipRegisterService implements RegisterService {
    * @param {string} user - sip endpoint username
    * @param {string} password - sip endpoint password
    */
-  constructor(private server: string, private user: string, private password: string) {}
+  constructor(private server: string, private user: string, private password: string) {
+    this.inviteSubject = new Subject<Invite>();
+    this.invite$ = this.inviteSubject.asObservable();
+  }
 
   /**
    * Registers the given client with the sip registrar,
@@ -36,26 +45,17 @@ export class JssipRegisterService implements RegisterService {
     };
 
     return new Promise<RegisteredEvent | UnRegisteredEvent>((resolve, reject) => {
-      this.userAgent = new UA(configuration);
+      this.userAgent = new NodeUa(configuration);
+      this.inviteSubscription = this.userAgent.invite$.subscribe(this.inviteSubject.next);
       this.userAgent.on('registered', (event: RegisteredEvent) => resolve(event));
       this.userAgent.on(
           'registrationFailed',
           (event: UnRegisteredEvent) => reject(event),
       );
 
-      this.userAgent.on('newRTCSession', (data: any) => this.test(data));
-
       this.userAgent.start();
       process.on('exit', () => this.unregisterClient());
     });
-  }
-
-  /**
-   * Temp
-   * @param {any} event
-   */
-  test(event: any): void {
-    console.log('********', event);
   }
 
   /**
@@ -66,6 +66,7 @@ export class JssipRegisterService implements RegisterService {
    */
   unregisterClient(): Promise<UnRegisteredEvent> {
     return new Promise<UnRegisteredEvent>((resolve) => {
+      this.inviteSubscription?.unsubscribe();
       this.userAgent?.on('unregistered', (event: RegisteredEvent) => resolve(event));
       this.userAgent?.unregister();
     });

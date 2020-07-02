@@ -1,5 +1,5 @@
 import express, {Express} from 'express';
-import {RegisterService, JssipRegisterService} from './sip';
+import {SipService, JssipSipService} from './sip';
 import {REST_APIS} from './rest';
 import bodyParser from 'body-parser';
 
@@ -13,22 +13,22 @@ app.use(bodyParser.urlencoded({extended: true})); // support encoded bodies
 app.listen(port, async () => {
   console.log( `server started at http://localhost:${ port }` );
 
-  await registerService();
+  await register();
 });
 REST_APIS.forEach((api) => api.setup(app));
 
 /**
  * Temp function that registers user agent.
  */
-export async function registerService() {
-  const registerService: RegisterService = new JssipRegisterService(
+export async function register() {
+  const sipService: SipService = new JssipSipService(
       'levimiller-matrixbridge.sip.signalwire.com',
       '+17784004339',
       'demodemo',
   );
   try {
-    const result = await registerService.registerClient();
-    console.info('Registered: ', result);
+    await sipService.registerClient();
+    console.info('Registered.');
   } catch (e) {
     console.error('Error registering: ', e);
   }
