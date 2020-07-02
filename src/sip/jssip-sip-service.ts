@@ -4,9 +4,9 @@ import {
   UnRegisteredEvent,
 } from 'jssip/lib/UA';
 import {SipService} from './sip-service';
-import {NodeUa} from "./node-ua";
-import {Invite} from "./models/invite";
-import {Observable, Subject, Subscription} from "rxjs";
+import {NodeUa} from './node-ua';
+import {Invite} from './models/invite';
+import {Observable, Subject, Subscription} from 'rxjs';
 const NodeWebSocket = require('jssip-node-websocket');
 
 /**

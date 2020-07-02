@@ -1,8 +1,8 @@
 /**
  * Handles Registering the user
  */
-import {Invite} from "./models/invite";
-import {Observable} from "rxjs";
+import {Invite} from './models/invite';
+import {Observable} from 'rxjs';
 
 export interface SipService {
   /**
