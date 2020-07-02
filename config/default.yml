@@ -1,0 +1,13 @@
+matrix:
+  app-server:
+    port: 1113
+    hsToken: 'abcd'
+    httpMaxSizeBytes: 5000000
+  client:
+
+sip:
+  port: 2357
+  signal-wire:
+    server: 'levimiller-matrixbridge.sip.signalwire.com'
+    user: '+17784004339'
+    password: 'demodemo'
