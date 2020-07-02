@@ -8,6 +8,7 @@
     "build": "tsc",
     "lint": "./node_modules/.bin/eslint \"**/*.ts\"",
     "lint:fix": "./node_modules/.bin/eslint --fix \"**/*.ts\"",
+    "gen-registration": "node ./scripts/generate_registration.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +26,7 @@
     "express": "^4.17.1",
     "jssip": "^3.5.1",
     "jssip-node-websocket": "^3.0.0",
+    "matrix-appservice": "^0.4.1",
     "rxjs": "^6.5.5"
   },
   "devDependencies": {
