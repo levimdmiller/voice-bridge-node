@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/levimdmiller/voice-bridge#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "jssip": "^3.5.1"
   }
 }
